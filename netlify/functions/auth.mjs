@@ -26,7 +26,7 @@ const session = (req) => {
 export default async (req, context) => {
   if (!process.env.AUTH_SECRET || process.env.AUTH_SECRET.length < 32) return J({ error: "Sign-in isn’t set up yet." }, 500);
   const route = new URL(req.url).pathname.replace(/^\/api\/auth\//, "").replace(/\/$/, "");
-  const store = getStore("bv-auth");
+  const store = getStore({ name: "bv-auth", consistency: "strong" });
 
   if (req.method === "GET") {
     if (route === "config") return J({ googleClientId: process.env.GOOGLE_CLIENT_ID || null });
