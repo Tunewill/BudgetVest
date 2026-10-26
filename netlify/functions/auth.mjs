@@ -55,7 +55,7 @@ export default async (req, context) => {
     const email = String(body.email || "").trim().toLowerCase();
     if (!EMAIL.test(email)) return J({ error: "Enter a valid email address." }, 400);
     if (!(await bump("cd-" + hmac(email), 1, 60e3))) return J({ error: "Wait a minute before asking for another code." }, 429);
-    if (!(await bump("rq-" + hmac(email), 5, 3600e3)) || !(await bump("ip-" + hmac(context.ip || "x"), 20, 3600e3)))
+    if (!(await bump("rq-" + hmac(email), 50, 3600e3)) || !(await bump("ip-" + hmac(context.ip || "x"), 100, 3600e3)))
       return J({ error: "Too many requests. Try again later." }, 429);
     const code = String(crypto.randomInt(0, 1e6)).padStart(6, "0");
     await store.setJSON("otp-" + hmac(email), { h: hmac(`otp:${email}:${code}`), exp: Date.now() + 10 * 60e3, tries: 0 });
