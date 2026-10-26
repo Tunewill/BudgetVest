@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BudgetVest</title><meta name="theme-color" content="#d97757"><meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css"></head><body>
+<div class="orbs"><i></i><i></i><i></i></div>
+<section class="login" id="login" hidden><div class="glass login-card">
+<div class="badge" id="lbadge"></div>
+<div id="lerr" class="err" role="alert" hidden></div>
+<div id="stEmail"><h1>Welcome to BudgetVest</h1><p class="sub">Sign in or create your account. No password to remember.</p>
+<div id="gWrap"><div id="gBtn"></div><div class="or">or use your email</div></div>
+<form id="fEmail"><div class="f"><label for="lemail">Email address</label><input id="lemail" type="email" autocomplete="email" maxlength="254" placeholder="you@example.com" required></div><button class="btn pri" id="sendBtn">Email me a code</button></form></div>
+<div id="stCode" hidden><h1>Check your email</h1><p class="sub">We sent a 6-digit code to <strong id="sentTo"></strong>. It works once and expires in 10 minutes.</p>
+<form id="fCode"><div class="f"><label for="lcode">Your code</label><input id="lcode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="••••••" required></div><button class="btn pri">Verify and continue</button></form>
+<button class="lnk" id="resend" type="button">Resend code</button><br><button class="lnk" id="back" type="button">Use a different email</button></div>
+<p class="fine">New here? Your account is created when you verify your email.</p>
+</div></section>
+<div id="appRoot" hidden>
+
+<main class="app">
+  <header class="top">
+    <div class="logo"><span class="tile" id="logoMark"></span>BudgetVest</div>
+    <div><button class="ib" id="themeBtn" aria-label="Switch theme"></button><button class="ib" id="setBtn" aria-label="Edit budget"></button><button class="ib" id="outBtn" aria-label="Sign out"></button></div>
+  </header>
+
+  <section class="glass hero">
+    <div class="hero-top"><select id="monthSel" aria-label="Month"></select><span class="chip hidden" id="ro">Read-only</span></div>
+    <div class="lbl">Left to spend</div>
+    <div class="big num" id="left"></div>
+    <div class="bar"><b id="heroBar"></b></div>
+    <div class="stats"><span>Spent <strong id="hSpent"></strong></span><span>Income <strong id="hInc"></strong></span></div>
+    <div class="btns"><button class="btn pri" id="addBtn"></button><button class="btn" id="editBtn"></button></div>
+  </section>
+
+  <section id="v-budget">
+    <div id="planNote"></div>
+    <h2>Spending</h2><div class="list" id="spendList"></div>
+    <h2>Saving</h2><div class="list" id="saveList"></div>
+  </section>
+
+  <section id="v-activity" class="hidden">
+    <h2>Activity <small id="actCount"></small></h2><div class="list" id="txList"></div>
+    <div class="btns"><button class="btn" id="expBtn"></button></div>
+  </section>
+
+  <section id="v-forecast" class="hidden">
+    <h2>Month-end forecast</h2>
+    <div class="glass hero" id="fcCard"></div>
+    <h2>Likely to go over</h2><div class="list" id="watch"></div>
+    <h2>Where your money goes</h2><div class="list" id="share"></div>
+    <h2>Past months</h2><div class="list" id="past"></div>
+  </section>
+
+  <section id="v-goals" class="hidden">
+    <h2>Savings goals</h2>
+    <div id="goalNote"></div>
+    <div class="list" style="margin-top:12px" id="goalList"></div>
+  </section>
+</main>
+
+<nav class="nav glass" id="nav"></nav>
+
+<div class="ov" id="expOv"><form class="sheet" id="expForm">
+  <h3>Add expense</h3>
+  <div class="f"><label for="amt">Amount (₦)</label><input class="amt" id="amt" type="number" inputmode="numeric" min="1" step="1" placeholder="0" required></div>
+  <div class="f"><label for="note">What was it for?</label><input id="note" type="text" placeholder="e.g. Bolt to work, MTN data, Shoprite"><div class="hint" id="hint"></div></div>
+  <div class="f"><label for="cat">Category</label><select id="cat"></select></div>
+  <div class="f"><label for="date">Date</label><input id="date" type="date" required></div>
+  <div class="btns"><button type="button" class="btn" data-close>Cancel</button><button class="btn pri">Save expense</button></div>
+</form></div>
+
+<div class="ov" id="setOv"><form class="sheet" id="setForm">
+  <h3>Edit budget</h3>
+  <div class="f"><label for="inc">Monthly income (₦)</label><input id="inc" type="number" min="0" required></div>
+  <button type="button" class="btn" id="autoBtn" style="width:100%;margin-bottom:16px"></button>
+  <div id="allocs"></div>
+  <div class="btns"><button type="button" class="btn" data-close>Cancel</button><button class="btn pri">Save budget</button></div>
+  <button type="button" class="btn" id="resetBtn" style="width:100%;margin-top:10px;background:none;color:var(--mute)">Reset this month</button>
+</form></div>
+
+<div class="toast" id="toast"></div>
+
+</div>
+<script src="/auth.js"></script></body></html>
